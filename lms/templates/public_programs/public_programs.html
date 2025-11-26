@@ -1,36 +1,49 @@
+<%page expression_filter="h" args="" />
 <%inherit file="/main.html" />
-<%!
-from django.utils.translation import gettext as _
-%>
 
-<%block name="pagetitle">
-    ${_('Programs')}
-</%block>
+<%block name="title">Programs</%block>
 
-<div class="programs-container">
-    <div class="programs-header">
-        <h1>${_('Programs')}</h1>
+<%block name="content">
+<div class="container mt-4">
+    <h2 class="mb-4">Programs</h2>
+
+    <div id="programs-container" class="row">
+        <p>Loading programs...</p>
     </div>
-
-    % if programs:
-        <div class="programs-list">
-            % for program in programs:
-                <article class="program" id="${program['uuid']}">
-                    <a href="/programs/${program['uuid']}/">
-                        % if program.get('banner_image'):
-                            <img src="${program['banner_image']['large']['url']}" alt="${program['title']}" />
-                        % endif
-                        <div class="program-info">
-                            <h2>${program['title']}</h2>
-                            % if program.get('subtitle'):
-                                <p>${program['subtitle']}</p>
-                            % endif
-                        </div>
-                    </a>
-                </article>
-            % endfor
-        </div>
-    % else:
-        <p>${_('No programs found.')}</p>
-    % endif
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("https://discovery.unify.university/api/v1/programs/")
+        .then(response => response.json())
+        .then(data => {
+            const programs = data.results || data;
+            const container = document.getElementById("programs-container");
+            container.innerHTML = "";
+
+            programs.forEach(program => {
+                const card = document.createElement("div");
+                card.className = "col-md-4 mb-3";
+
+                card.innerHTML = '\
+                    <div class="card">\
+                        <div class="card-body">\
+                            <h4>' + program.title + '</h4>\
+                            <p>' + (program.subtitle || "") + '</p>\
+                            <a class="btn btn-primary" href="/login?next=/program/' + program.uuid + '">\
+                                View Program\
+                            </a>\
+                        </div>\
+                    </div>';
+
+                container.appendChild(card);
+            });
+        })
+        .catch(err => {
+            document.getElementById("programs-container").innerHTML =
+                "<p>Error loading programs.</p>";
+        });
+});
+</script>
+
+</%block>
