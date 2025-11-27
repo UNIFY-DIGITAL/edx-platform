@@ -1,49 +1,59 @@
-<%page expression_filter="h" args="" />
+## mako
+
+<%page expression_filter="h"/>
 <%inherit file="/main.html" />
 
-<%block name="title">Programs</%block>
+<%!
+from django.utils.translation import gettext as _
+%>
+
+<%block name="title">
+${_('Programs')}
+</%block>
 
 <%block name="content">
-<div class="container mt-4">
-    <h2 class="mb-4">Programs</h2>
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            <h1>${_('Programs')}</h1>
+        </div>
+    </div>
 
-    <div id="programs-container" class="row">
-        <p>Loading programs...</p>
+    <div class="row">
+        % if programs:
+            % for program in programs:
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="card shadow-sm" style="border-radius:10px;">
+
+                        % if program.get('banner_image'):
+                            <img 
+                                class="card-img-top"
+                                src="${program['banner_image']['large']['url']}" 
+                                alt="${program['title']}"
+                                style="height:180px; object-fit:cover;"
+                            >
+                        % endif
+
+                        <div class="card-body">
+                            <h5 class="card-title">${program['title']}</h5>
+
+                            % if program.get('subtitle'):
+                                <p class="text-muted">${program['subtitle']}</p>
+                            % endif
+
+                            <a href="/programs/${program['uuid']}" class="btn btn-primary btn-block">
+                                ${_('View Details')}
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            % endfor
+        % else:
+            <div class="col-12 text-center">
+                <p>${_('No programs found.')}</p>
+            </div>
+        % endif
     </div>
 </div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    fetch("https://discovery.unify.university/api/v1/programs/")
-        .then(response => response.json())
-        .then(data => {
-            const programs = data.results || data;
-            const container = document.getElementById("programs-container");
-            container.innerHTML = "";
-
-            programs.forEach(program => {
-                const card = document.createElement("div");
-                card.className = "col-md-4 mb-3";
-
-                card.innerHTML = '\
-                    <div class="card">\
-                        <div class="card-body">\
-                            <h4>' + program.title + '</h4>\
-                            <p>' + (program.subtitle || "") + '</p>\
-                            <a class="btn btn-primary" href="/login?next=/program/' + program.uuid + '">\
-                                View Program\
-                            </a>\
-                        </div>\
-                    </div>';
-
-                container.appendChild(card);
-            });
-        })
-        .catch(err => {
-            document.getElementById("programs-container").innerHTML =
-                "<p>Error loading programs.</p>";
-        });
-});
-</script>
-
 </%block>
