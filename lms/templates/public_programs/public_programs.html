@@ -13,11 +13,6 @@ ${_('Programs')}
 
 <%block name="content">
 
-<!-- ========================== -->
-<!-- EXISTING PROGRAM LIST CODE -->
-<!-- (UNCHANGED — EXACT COPY)   -->
-<!-- ========================== -->
-
 % if programs:
 <div class="container mt-5 mb-5">
     <div class="row">
@@ -29,32 +24,29 @@ ${_('Programs')}
     <div class="row">
         % for program in programs:
             <div class="col-12 col-md-6 col-lg-4 mb-4">
-                <div class="card shadow-sm" style="border-radius:10px;">
+                <div class="card shadow-sm">
 
                     % if program.get('banner_image'):
                         <img 
                             class="card-img-top"
                             src="${program['banner_image']['large']['url']}" 
                             alt="${program['title']}"
-                            style="height:180px; object-fit:cover;"
                         >
                     % endif
 
                     <div class="card-body">
-    <h5 class="card-title">${program['title']}</h5>
+                        <h5 class="card-title">${program['title']}</h5>
 
-    % if program.get('subtitle'):
-        <p class="text-muted">${program['subtitle']}</p>
-    % endif
+                        % if program.get('subtitle'):
+                            <p class="text-muted">${program['subtitle']}</p>
+                        % endif
 
-
-    <div class="program-tabs">
-        <span>Completed</span> |
-        <span>In Progress</span> |
-        <span>Remaining</span>
-    </div>
-</div>
-
+                        <div class="program-tabs">
+                            <span>Completed</span> |
+                            <span>In Progress</span> |
+                            <span>Remaining</span>
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -64,36 +56,27 @@ ${_('Programs')}
 
 % else:
 
-<!-- ======================================= -->
-<!-- PROGRAM DETAIL SECTION (NEW — ADDED)     -->
-<!-- ======================================= -->
-
 % if program:
 <div class="container mt-5 mb-5">
 
-    <!-- Title -->
     <div class="row">
         <div class="col-12 text-center mb-4">
             <h1>${program['title']}</h1>
         </div>
     </div>
 
-    <!-- Banner Image -->
     % if program.get('banner_image'):
-        <img src="${program['banner_image']['large']['url']}" 
-             style="width:100%; max-height:300px; object-fit:cover; border-radius:10px;">
+        <img src="${program['banner_image']['large']['url']}" class="program-banner">
     % endif
 
     <div class="mt-4">
 
-        <!-- Description -->
         % if program.get('marketing_description'):
             <p>${program['marketing_description']}</p>
         % endif
 
         <hr>
 
-        <!-- Courses -->
         <h3>${_('Courses Included')}</h3>
         <ul>
             % for course in program.get('courses', []):
@@ -103,7 +86,6 @@ ${_('Programs')}
 
         <hr>
 
-        <!-- Enroll / View Course Button -->
         % if not user.is_authenticated():
             <a href="/login?next=/programs/${program['uuid']}" 
                class="btn btn-primary btn-lg mt-3">
