@@ -62,7 +62,7 @@ ${_('Programs')}
                             </a>
 
                             <!-- Enroll / View Course: redirect to login for anonymous users -->
-                            % if not user.is_authenticated():
+                            % if not user.is_authenticated:
                                 <a href="/login?next=/programs/${program['uuid']}"
                                    class="btn btn-primary btn-sm"
                                    onclick="event.stopPropagation();">
@@ -103,7 +103,7 @@ ${_('Programs')}
 
     <div class="mt-4">
 
-        % if not user.is_authenticated():
+        % if not user.is_authenticated:
             <div class="alert alert-info">
                 ${_("You are viewing a limited preview. Log in to enroll or view full course pages.")}
             </div>
@@ -118,14 +118,14 @@ ${_('Programs')}
         <h3>${_('Courses Included')}</h3>
 
         <ul>
-            % if not user.is_authenticated():
+            % if not user.is_authenticated:
                 % for course in program.get('courses', [])[:1]:
                     <li>
                         ${course['title']} (Preview)
 
                         % for run in course.get('course_runs', []):
                             <div class="mt-1">
-                                % if not user.is_authenticated():
+                                % if not user.is_authenticated:
                                     <a href="/login?next=/courses/${run[key]}/about"
                                        class="btn btn-link btn-sm"
                                        onclick="event.preventDefault(); window.location='/login?next=/courses/${run[key]}/about';">
@@ -167,7 +167,7 @@ ${_('Programs')}
 
         <hr>
 
-        % if not user.is_authenticated():
+        % if not user.is_authenticated:
             <a href="/login?next=/programs/${program['uuid']}"
                class="btn btn-primary btn-lg mt-3">
                 ${_('Login to Enroll or View More')}
