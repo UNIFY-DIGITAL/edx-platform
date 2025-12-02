@@ -13,7 +13,7 @@ ${_('Programs')}
 
 <%block name="content">
 
-% if programs:
+% if programs is not UNDEFINED and programs:
 <div class="container mt-5 mb-5">
     <div class="row">
         <div class="col-12 text-center mb-4">
@@ -59,7 +59,7 @@ ${_('Programs')}
 
 % else:
 
-% if program:
+% if program is not UNDEFINED and program:
 <div class="container mt-5 mb-5">
 
     <div class="row">
