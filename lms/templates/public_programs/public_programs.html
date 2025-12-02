@@ -1,4 +1,4 @@
-## mako
+<!--## mako
 
 <%page expression_filter="h"/>
 <%inherit file="/main.html" />
@@ -13,7 +13,7 @@ ${_('Programs')}
 
 <%block name="content">
 
-% if programs is not UNDEFINED and programs:
+% if programs:
 <div class="container mt-5 mb-5">
     <div class="row">
         <div class="col-12 text-center mb-4">
@@ -24,8 +24,6 @@ ${_('Programs')}
     <div class="row">
         % for program in programs:
             <div class="col-12 col-md-6 col-lg-4 mb-4">
-                <a href="/programs/${program['uuid']}">
-
                 <div class="card shadow-sm">
 
                     % if program.get('banner_image'):
@@ -51,7 +49,6 @@ ${_('Programs')}
                     </div>
 
                 </div>
-                </a>
             </div>
         % endfor
     </div>
@@ -59,7 +56,7 @@ ${_('Programs')}
 
 % else:
 
-% if program is not UNDEFINED and program:
+% if program:
 <div class="container mt-5 mb-5">
 
     <div class="row">
@@ -108,4 +105,47 @@ ${_('Programs')}
 
 % endif  
 
+</%block> -->
+
+
+
+
+## mako
+
+<%page expression_filter="h"/>
+
+<%namespace name='static' file='../static_content.html'/>
+<%!
+from openedx.core.djangolib.js_utils import (
+    dump_js_escaped_json, js_escaped_string
+)
+%>
+
+% if mobile_only:
+<div class="program-list-wrapper grid-container py-0">
+    <div class="program-list-container col-12 col-md-9">
+        <div class="program-cards-container col pt-4"></div>
+    </div>
+    <div class="sidebar col-12 col-md-3"></div>
+</div>
+% else:
+<div class="program-list-wrapper grid-container">
+    <div class="program-list-container col-12 col-md-9">
+        <div class="js-program-list-header"></div>
+        <div class="program-cards-container col"></div>
+    </div>
+    <div class="sidebar col-12 col-md-3"></div>
+</div>
+% endif
+
+<%block name="js_extra">
+<%static:webpack entry="ProgramListFactory">
+ProgramListFactory({
+    marketingUrl: '${marketing_url | n, js_escaped_string}',
+    programsData: ${programs | n, dump_js_escaped_json},
+    userProgress: ${progress | n, dump_js_escaped_json},
+    userPreferences: ${user_preferences | n, dump_js_escaped_json},
+    mobileOnly: ${mobile_only | n, dump_js_escaped_json}
+});
+</%static:webpack>
 </%block>
