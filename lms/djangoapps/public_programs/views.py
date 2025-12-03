@@ -12,7 +12,7 @@ def public_programs(request, program_uuid=None):
             return render(request, "404.html", status=404)
 
         program = response.json()
-        return render(request, "public_programs/public_programs.html", {"program": program})
+        return render(request, "public_programs/public_programs.html", {"program": program, "programs": None})
 
 
     api_url = "https://discovery.unify.university/api/v1/programs/"
