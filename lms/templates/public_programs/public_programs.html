@@ -1,40 +1,187 @@
-
 ## mako
 
 <%page expression_filter="h"/>
+<%inherit file="/main.html" />
 
-<%namespace name='static' file='../static_content.html'/>
 <%!
-from openedx.core.djangolib.js_utils import (
-    dump_js_escaped_json, js_escaped_string
-)
+from django.utils.translation import gettext as _
 %>
 
-% if mobile_only:
-<div class="program-list-wrapper grid-container py-0">
-    <div class="program-list-container col-12 col-md-9">
-        <div class="program-cards-container col pt-4"></div>
+<%block name="title">
+${_('Programs')}
+</%block>
+
+<%block name="content">
+
+% if programs:
+<div class="programs-container">
+    <div class="program-grid">
+        <div class="col-12 text-center mb-4">
+            <h1>${_('Available Programs')}</h1>
+        </div>
     </div>
-    <div class="sidebar col-12 col-md-3"></div>
-</div>
-% else:
-<div class="program-list-wrapper grid-container">
-    <div class="program-list-container col-12 col-md-9">
-        <div class="js-program-list-header"></div>
-        <div class="program-cards-container col"></div>
+
+    <div class="program-grid">
+        % for program in programs:
+            <div class="program-card">
+
+                <% 
+                    # Card always links to program detail (preview). No login required to open preview.
+                    detail_url = f"/programs/{program['uuid']}"
+                %>
+
+                <div class="program-card"
+                     onclick="window.location='${detail_url}'"
+                     style="cursor:pointer;">
+
+                    % if program.get('banner_image'):
+                        <img class="card-img-top"
+                             src="${program['banner_image']['large']['url']}"
+                             alt="${program['title']}">
+                    % endif
+
+                    <div class="card-body">
+                        <h5 class="program-name">${program['title']}</h5>
+
+                        % if program.get('subtitle'):
+                            <p class="text-muted">${program['subtitle']}</p>
+                        % endif
+
+                        <div class="progress-stats">
+                            <a href="${detail_url}#completed">Completed</a> |
+                            <a href="${detail_url}#progress">In Progress</a> |
+                            <a href="${detail_url}#remaining">Remaining</a>
+                        </div>
+
+                        <div class="mt-3 d-flex justify-content-between align-items-center">
+                            <!-- View Program button: opens preview for everyone -->
+                            <a href="${detail_url}"
+                               class="btn btn-outline-primary btn-sm"
+                               onclick="event.stopPropagation();">
+                                ${_('View Program')}
+                            </a>
+
+                            <!-- Enroll / View Course: redirect to login for anonymous users -->
+                            % if not user.is_authenticated:
+                                <a href="/login?next=/programs/${program['uuid']}"
+                                   class="btn btn-primary btn-sm"
+                                   onclick="event.stopPropagation();">
+                                    ${_('Enroll Now / View Course')}
+                                </a>
+                            % else:
+                                <a href="/programs/${program['uuid']}/enroll" 
+                                   class="btn btn-success btn-sm"
+                                   onclick="event.stopPropagation();">
+                                    ${_('Enroll Now / View Course')}
+                                </a>
+                            % endif
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        % endfor
     </div>
-    <div class="sidebar col-12 col-md-3"></div>
 </div>
+
+% elif program:   ## -------- SINGLE PROGRAM PAGE / PREVIEW -------- ##
+
+% if program:
+<div class="programs-container">
+
+    <div class="program-grid">
+        <div class="col-12 text-center mb-4">
+            <h1>${program['title']}</h1>
+        </div>
+    </div>
+
+    % if program.get('banner_image'):
+        <img src="${program['banner_image']['large']['url']}"
+             class="program-banner img-fluid">
+    % endif
+
+    <div class="mt-4">
+
+        % if not user.is_authenticated:
+            <div class="alert alert-info">
+                ${_("You are viewing a limited preview. Log in to enroll or view full course pages.")}
+            </div>
+        % endif
+
+        % if program.get('marketing_description'):
+            <p>${program['marketing_description']}</p>
+        % endif
+
+        <hr>
+
+        <h3>${_('Courses Included')}</h3>
+
+        <ul>
+            % if not user.is_authenticated:
+                % for course in program.get('courses', [])[:1]:
+                    <li>
+                        ${course['title']} (Preview)
+
+                        % for run in course.get('course_runs', []):
+                            <div class="mt-1">
+                                % if not user.is_authenticated:
+                                    <a href="/login?next=/courses/${run[key]}/about"
+                                       class="btn btn-link btn-sm"
+                                       onclick="event.preventDefault(); window.location='/login?next=/courses/${run[key]}/about';">
+                                       ${_('View Course')}
+                                    </a>
+                                % else:
+                                    <a href="/courses/${run[key]}/about" class="btn btn-link btn-sm">
+                                       ${_('View Course')}
+                                    </a>
+                                % endif
+                            </div>
+                        % endfor
+
+                    </li>
+                % endfor
+            % else:
+                % for course in program.get('courses', []):
+                    <li>
+                        ${course['title']}
+
+                        % for run in course.get('course_runs', []):
+                            <div class="mt-1">
+                                <a href="/courses/${run[key]}/about" class="btn btn-link btn-sm">
+                                   ${_('View Course')}
+                                </a>
+
+                                % if run.get('is_enrollable'):
+                                    <a href="/courses/${run[key]}/enroll" class="btn btn-sm btn-success ml-2">
+                                       ${_('Enroll')}
+                                    </a>
+                                % endif
+                            </div>
+                        % endfor
+
+                    </li>
+                % endfor
+            % endif
+        </ul>
+
+        <hr>
+
+        % if not user.is_authenticated:
+            <a href="/login?next=/programs/${program['uuid']}"
+               class="btn btn-primary btn-lg mt-3">
+                ${_('Login to Enroll or View More')}
+            </a>
+        % else:
+            <a href="/dashboard" class="btn btn-success btn-lg mt-3">
+                ${_('Go to Dashboard')}
+            </a>
+        % endif
+
+    </div>
+</div>
+
 % endif
 
-<%block name="js_extra">
-<%static:webpack entry="ProgramListFactory">
-ProgramListFactory({
-    marketingUrl: '${marketing_url | n, js_escaped_string}',
-    programsData: ${programs | n, dump_js_escaped_json},
-    userProgress: ${progress | n, dump_js_escaped_json},
-    userPreferences: ${user_preferences | n, dump_js_escaped_json},
-    mobileOnly: ${mobile_only | n, dump_js_escaped_json}
-});
-</%static:webpack>
+
 </%block>
