@@ -99,7 +99,7 @@ urlpatterns = [
     
     path("programs", public_programs, name="public-programs"),
 
-    path("programs/<uuid:program_uuid>", public_programs, name="public-program-detail"),
+    path("programs/<uuid:program_uuid>/", public_programs, name="public-program-detail"),
     
     path('', include('common.djangoapps.student.urls')),
     # TODO: Move lms specific student views out of common code
