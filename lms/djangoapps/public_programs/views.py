@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 def public_programs(request, program_uuid=None):
 
-    
+    # Case 1: Program detail page
     if program_uuid:
         api_url = f"https://discovery.unify.university/api/v1/programs/{program_uuid}/"
         response = requests.get(api_url)
@@ -12,11 +12,22 @@ def public_programs(request, program_uuid=None):
             return render(request, "404.html", status=404)
 
         program = response.json()
-        return render(request, "public_programs/public_programs.html", {"program": program, "programs": None})
 
+        # 👉 Render the NEW details template
+        return render(
+            request,
+            "public_programs/public_programs_detail.html",
+            {"program": program}
+        )
 
+    # Case 2: Program list page
     api_url = "https://discovery.unify.university/api/v1/programs/"
     response = requests.get(api_url).json()
 
     programs = response.get("results", [])
-    return render(request, "public_programs/public_programs.html", {"programs": programs})
+
+    return render(
+        request,
+        "public_programs/public_programs.html",
+        {"programs": programs}
+    )
