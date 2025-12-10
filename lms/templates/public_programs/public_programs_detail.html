@@ -6,111 +6,110 @@
 from django.utils.translation import gettext as _
 %>
 
-<%block name="title">
-    ${ program['title'] }
-</%block>
+<%namespace name='static' file='../static_content.html'/>
 
-<%block name="content">
+<div class="program-details-wrapper">
 
-<div class="container my-5">
-
-    <!-- TITLE -->
-    <div class="row">
-        <div class="col-12 text-center mb-4">
-            <h1>${ program['title'] }</h1>
+    <div class="program-details-header">
+        <div class="meta-info grid-container">
+            <h2 class="program-title">${ program['title'] }</h2>
         </div>
     </div>
 
-    <!-- BANNER -->
-    % if program.get("banner_image"):
-        <img src="${program['banner_image']['large']['url']}"
-             class="img-fluid mb-4 rounded">
-    % endif
+    <div class="col-12 flex-column">
 
-    <div class="row">
+        <div class="program-details-content">
 
-        <!-- LEFT COLUMN -->
-        <div class="col-lg-8">
-
-            <!-- PROGRAM JOURNEY CARD -->
-            <div class="card p-4 mb-4">
-                <h4 class="fw-bold">${_('Your Program Journey')}</h4>
-                <p class="text-muted mt-2">
+            <div class="program-heading">
+                <h3>${_('Your Program Journey')}</h3>
+                <p class="program-heading-message">
                     ${_("Track and plan your progress through the")} 
                     ${len(program.get('courses', []))} 
                     ${_("courses in this program.")}<br>
-                    ${_("To complete the program, you must earn a verified certificate for each course.") }
+                    ${_("To complete the program, you must earn a verified certificate for each course.")}
                 </p>
             </div>
 
-            <!-- REMAINING COURSES -->
-            <h5 class="fw-bold mt-4">
-                ${_('Remaining Courses')}
-                <span class="badge bg-light text-dark border ms-2">
-                    ${len(program.get('courses', []))}
-                </span>
-            </h5>
+            <div class="course-list-headings">
 
-            % for course in program.get("courses", []):
-                <div class="card p-4 mb-3 position-relative">
+                <div class="remaining-group position-relative">
+                        <h4>${_('Remaining Courses')}</h4>
+                        <span class="count">${len(program.get('courses', []))}</span>
 
-                    <h5 class="fw-bold">${course['title']}</h5>
+                        <div class="course-list">
+                            % for course in program.get("courses", []):
+                                <div class="program-course-card">
 
-                    <!-- Status (from your screenshot, always static) -->
-                    <span class="text-muted position-absolute"
-                          style="top: 22px; right: 20px;">
-                        ${_('Not Currently Available')}
-                    </span>
+                                    <div class="course-text">
+                                        <div class="title">${course['title']}</div>
 
-                    <div class="mt-3 text-muted small">
-                        <i class="bi bi-info-circle"></i>
-                        ${_('You enrolled in this course but did not earn the certificate required to complete this program.')}
+                                        <div class="certificate-status">
+                                            <span class="certificate-status-msg">
+                                                ${_('Not Currently Available')}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <p class="motivating-message">
+                                        <i class="bi bi-info-circle"></i>
+                                        ${_('You enrolled in this course but did not earn the certificate required to complete this program.')}
+                                    </p>
+
+                                    % if course.get('course_runs') and len(course['course_runs']) > 0:
+                                        <% run = course['course_runs'][0] %>
+
+                                        <a href="https://unify.university/courses/${ run['key'] }/about"
+                                           class="btn-brand">
+                                            ${_('View Details')}
+                                        </a>
+                                    % endif
+
+                                </div>
+                            % endfor
+                        </div>
+                </div>
+
+                <div class="completed-group position-relative">
+                    <h4>${_('Completed Courses')}</h4>
+                    <span class="count">0</span>
+
+                    <div class="program-course-card motivating-section">
+                        <p class="motivating-message">
+                            ${_("As you complete courses, you will see them listed here.")}<br>
+                            ${_("Complete courses on your schedule to ensure you stand out in your field!")}
+                        </p>
                     </div>
                 </div>
-            % endfor
 
-            <!-- COMPLETED COURSES -->
-            <h5 class="fw-bold mt-4">
-                ${_('Completed Courses')}
-                <span class="badge bg-light text-dark border ms-2">
-                    0
-                </span>
-            </h5>
-
-            <div class="card p-4 mb-4">
-                <p class="text-muted mb-0">
-                    ${_("As you complete courses, you will see them listed here.")}<br>
-                    ${_("Complete courses on your schedule to ensure you stand out in your field!")}
-                </p>
             </div>
 
         </div>
 
-        <!-- RIGHT SIDEBAR -->
-        <div class="col-lg-4">
+        <div class="program-sidebar">
 
-            <!-- MASTERS PROGRESS -->
-            <div class="card p-4 mb-4 text-center">
-                <h5 class="fw-bold">${_('Masters Progress')}</h5>
+            <div class="aside">
+                <h2>${_('Masters Progress')}</h2>
 
-                <div class="mx-auto my-3"
-                     style="width: 200px; height: 200px;
-                            border: 8px solid #d1d5db; border-radius: 50%;
-                            display: flex; align-items: center; justify-content: center;">
-                    <span class="fw-bold" style="font-size: 32px;">
-                        0 / ${len(program.get('courses', []))}
-                    </span>
-                </div>
+                <div class="progress-circle-wrapper mx-auto">
+                    <svg viewBox="0 0 200 200">
+                        <circle class="base-circle"></circle>
+                        <circle class="complete"></circle>
+                    </svg>
 
-                <div class="text-muted">
-                    ${_('Earned Certificates')}
+                    <div class="numbers text-center mt-2">
+                        <span class="complete">0</span> /
+                        <span>${len(program.get('courses', []))}</span>
+                    </div>
+
+                    <div class="progress-label text-center">
+                        ${_('Earned Certificates')}
+                    </div>
                 </div>
             </div>
 
-            <!-- PROGRAM RECORD -->
-            <div class="card p-4">
-                <h5 class="fw-bold">${_('Program Record')}</h5>
-                <p class="text-muted mt-2 mb-0">
+            <div class="aside">
+                <h2>${_('Program Record')}</h2>
+                <p class="motivating-message">
                     ${_("Once you complete one of the program requirements you have a program record.")}<br><br>
                     ${_("This record is marked complete once you meet all program requirements.")}<br><br>
                     ${_("A program record can be used to continue your learning journey and demonstrate your learning to others.")}
@@ -118,8 +117,6 @@ from django.utils.translation import gettext as _
             </div>
 
         </div>
+
     </div>
-
 </div>
-
-</%block>
