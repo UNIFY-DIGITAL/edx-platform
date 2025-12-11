@@ -84,8 +84,7 @@
 @import 'mixins-inherited';
 @import 'elements/system-feedback';
 
-@import 'public_programs/public_programs';
-@import 'public_programs/public_programs_detail';
+
 // Responsive Design
 @import 'header';
 
@@ -96,3 +95,7 @@
 
 // Extra theme-specific rules
 @import 'lms/theme/extras';
+
+
+@import 'public_programs/public_programs';
+@import 'public_programs/public_programs_detail';
