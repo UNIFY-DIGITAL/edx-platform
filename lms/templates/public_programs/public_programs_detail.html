@@ -25,7 +25,7 @@ from django.utils.translation import gettext as _
                 <p class="program-heading-message">
                     ${_("Track and plan your progress through the")} 
                     ${len(program.get('courses', []))} 
-                    ${_("courses in this program.")}<br>
+                    ${_("courses in this program.")}
                     ${_("To complete the program, you must earn a verified certificate for each course.")}
                 </p>
             </div>
@@ -33,51 +33,39 @@ from django.utils.translation import gettext as _
             <div class="course-list-headings">
 
                 <div class="remaining-group position-relative">
-                        <h4>${_('Remaining Courses')}</h4>
-                        <span class="count">${len(program.get('courses', []))}</span>
+                    <h4>${_(' Courses')}</h4>
+                    <span class="count">${len(program.get('courses', []))}</span>
 
-                        <div class="course-list">
-                            % for course in program.get("courses", []):
-                                <div class="program-course-card">
+                    <div class="course-list">
+                        % for course in program.get("courses", []):
+                            <div class="program-course-card">
 
-                                    <div class="course-text">
-                                        <div class="title">${course['title']}</div>
+                                <div class="course-text">
+                                    <div class="title">${course['title']}</div>
 
-                                        <div class="certificate-status">
-                                            <span class="certificate-status-msg">
-                                                ${_('Not Currently Available')}
-                                            </span>
-                                        </div>
+                                    <div class="certificate-status">
+                                        <span class="certificate-status-msg">
+                                            ${_('Not Currently Available')}
+                                        </span>
                                     </div>
-
-                                    <p class="motivating-message">
-                                        <i class="bi bi-info-circle"></i>
-                                        ${_('You enrolled in this course but did not earn the certificate required to complete this program.')}
-                                    </p>
-
-                                    % if course.get('course_runs') and len(course['course_runs']) > 0:
-                                        <% run = course['course_runs'][0] %>
-
-                                        <a href="https://unify.university/courses/${ run['key'] }/about"
-                                           class="btn-brand">
-                                            ${_('View Details')}
-                                        </a>
-                                    % endif
-
                                 </div>
-                            % endfor
-                        </div>
-                </div>
 
-                <div class="completed-group position-relative">
-                    <h4>${_('Completed Courses')}</h4>
-                    <span class="count">0</span>
+                                <p class="motivating-message">
+                                    <i class="bi bi-info-circle"></i>
+                                    ${_('You enrolled in this course but did not earn the certificate required to complete this program.')}
+                                </p>
 
-                    <div class="program-course-card motivating-section">
-                        <p class="motivating-message">
-                            ${_("As you complete courses, you will see them listed here.")}<br>
-                            ${_("Complete courses on your schedule to ensure you stand out in your field!")}
-                        </p>
+                                % if course.get('course_runs') and len(course['course_runs']) > 0:
+                                    <% run = course['course_runs'][0] %>
+
+                                    <a href="https://unify.university/courses/${ run['key'] }/about"
+                                       class="btn-brand">
+                                        ${_('View Details')}
+                                    </a>
+                                % endif
+
+                            </div>
+                        % endfor
                     </div>
                 </div>
 
@@ -86,26 +74,6 @@ from django.utils.translation import gettext as _
         </div>
 
         <div class="program-sidebar">
-
-            <div class="aside">
-                <h2>${_('Masters Progress')}</h2>
-
-                <div class="progress-circle-wrapper mx-auto">
-                    <svg viewBox="0 0 200 200">
-                        <circle class="base-circle"></circle>
-                        <circle class="complete"></circle>
-                    </svg>
-
-                    <div class="numbers text-center mt-2">
-                        <span class="complete">0</span> /
-                        <span>${len(program.get('courses', []))}</span>
-                    </div>
-
-                    <div class="progress-label text-center">
-                        ${_('Earned Certificates')}
-                    </div>
-                </div>
-            </div>
 
             <div class="aside">
                 <h2>${_('Program Record')}</h2>
