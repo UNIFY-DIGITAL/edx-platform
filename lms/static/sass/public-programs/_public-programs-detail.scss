@@ -37,7 +37,7 @@
                 @include media-breakpoint-up(md) {
                     width: calc(100% - 32% - 40px);
                 }
-                @media only screen and (min-width: $big-screen) {
+                @include media-breakpoint-up(xl) {
                     max-width: calc(100% - 24% - 40px);
                     color: black;
                 }
@@ -56,7 +56,7 @@
             @include media-breakpoint-up(md) {
                 max-width: calc(100% - 32% - 40px);
             }
-            @media only screen and (min-width: $big-screen) {
+            @include media-breakpoint-up(xl) {
                 max-width: calc(100% - 24% - 40px);
                 color: black;
             }
@@ -92,11 +92,11 @@
                             color: #111827;
                         }
                     }
-                    .count{
-                         width: 30px;
-                         height: 25px;
-                         position: absolute;   /* only if you want to use top/left */
-                         text-align: center;
+                    .count {
+                        width: 30px;
+                        height: 25px;
+                        position: absolute;
+                        text-align: center;
                         opacity: 1;
                         border-radius: 4px;
                         background: #F8F8F8;
@@ -141,7 +141,6 @@
                             margin: 0;
                             font-size: 12px;
                             font-weight: 400;
-                    
                         }
                         .certificate-status {
                             margin: 0;
@@ -149,7 +148,6 @@
                             span.certificate-status-msg {
                                 font-size: 12px;
                                 line-height: 16px;
-                            
                             }
                         }
                         .course-text {
@@ -163,10 +161,9 @@
                             }
                         }
                     }
-                    .motivating-section{
+                    .motivating-section {
                         background: #F8F8F8;
                     }
-                    
                 }
             }
         }
@@ -195,7 +192,6 @@
             width: 100%;
             border: 1px solid #D8D8D8;
             font-size: 12px;
-        
             p.motivating-message {
                 margin: 0;
                 color: none;
