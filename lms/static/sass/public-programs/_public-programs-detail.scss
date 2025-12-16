@@ -1,266 +1,217 @@
 .program-details-wrapper {
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 30px 15px 10px;
-    @include media-breakpoint-up(md) {
-        padding: 40px 15px;
+
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 30px 15px 10px;
+
+  @include media-breakpoint-up(md) {
+    padding: 40px 15px;
+  }
+
+  /* ---------------- Header ---------------- */
+
+  .program-details-header {
+    padding: 0 0 20px;
+    background: none;
+
+    .meta-info.grid-container {
+      width: 100%;
+      overflow: hidden;
+
+      h2.program-title {
+        float: left;
+        width: 100%;
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0;
+        text-transform: capitalize;
+        color: #111827;
+
+        @include media-breakpoint-up(md) {
+          width: calc(100% - 32% - 40px);
+        }
+
+        @media only screen and (min-width: $big-screen) {
+          max-width: calc(100% - 24% - 40px);
+          color: black;
+        }
+      }
     }
-    .program-details-header {
-        padding: 0 0 20px;
-        background: none;
-        .authoring-organizations {
-            display: none;
+  }
+
+  /* ---------------- Layout Wrapper ---------------- */
+
+  .col-12.flex-column {
+    padding: 0 !important;
+    display: block !important;
+    overflow: hidden;
+
+    /* ---------------- Main Content ---------------- */
+
+    .program-details-content {
+      padding: 0;
+      width: 100%;
+      float: left;
+      max-width: 100%;
+
+      @include media-breakpoint-up(md) {
+        max-width: calc(100% - 32% - 40px);
+      }
+
+      @media only screen and (min-width: $big-screen) {
+        max-width: calc(100% - 24% - 40px);
+        color: black;
+      }
+
+      /* ---------------- Program Heading ---------------- */
+
+      .program-heading {
+        border-radius: 6px;
+        padding: 15px 20px;
+        margin: 0 0 30px;
+        border: 1px solid #D8D8D8;
+
+        h3 {
+          color: #292C2E;
+          font: 600 16px/20px;
+          margin: 0 0 10px;
         }
-        .meta-info.grid-container {
-            width: 100%;
-            overflow: hidden;
-            .xseries {
-                float: right;
-                width: 100%;
-                @include media-breakpoint-up(md) {
-                    width: 32%;
-                }
-                @include media-breakpoint-up(lg) {
-                    width: 24%;
-                }
-                svg {
-                    width: 150px;
-                }
-            }
-            h2.program-title {
-                float: left;
-                width: 100%;
-                font-size: 24px;
-                font-weight: 700;
-                margin: 0;
-                text-transform: capitalize;
-                @include media-breakpoint-up(md) {
-                    width: calc(100% - 32% - 40px);
-                }
-                @include media-breakpoint-up(xl) {
-                    max-width: calc(100% - 24% - 40px);
-                    color: black;
-                }
-            }
+
+        .program-heading-message {
+          font-size: 12px;
+          line-height: 16px;
+          color: #70787E;
         }
-    }
-    .col-12.flex-column {
-        padding: 0 !important;
-        display: block !important;
-        overflow: hidden;
-        .program-details-content {
-            padding: 0;
-            width: 100%;
-            float: left;
-            max-width: 100%;
-            @include media-breakpoint-up(md) {
-                max-width: calc(100% - 32% - 40px);
-            }
-            @include media-breakpoint-up(xl) {
-                max-width: calc(100% - 24% - 40px);
-                color: black;
-            }
-            .program-heading {
-                border-radius: 6px;
-                padding: 15px 20px;
-                margin: 0 0 30px;
-                border: 1px solid #D8D8D8;
-                h3 {
-                    color: #292C2E !important;
-                    font: 600 16px/20px;
-                    margin: 0 0 10px;
-                }
-                .program-heading-message {
-                    font-size: 12px;
-                    line-height: 16px;
-                    color: #70787E;
-                }
-            }
-            .course-list-headings {
-                .remaining-group, .in-progress-group {
-                    margin: 0 0 15px;
-                    h4, h5 {
-                        text-align: left;
-                        font-size: 16px;
-                        color: #111827;
-                        font-weight: 600;
-                        font: 600 16px/22px;
-                        margin: 0 0 10px;
-                        padding: 0;
-                        border: none;
-                        a {
-                            color: #111827;
-                        }
-                    }
-                    .count {
-                        width: 30px;
-                        height: 25px;
-                        position: absolute;
-                        text-align: center;
-                        opacity: 1;
-                        border-radius: 4px;
-                        background: #F8F8F8;
-                        top: 3px;
-                        left: 65px;
-                        font-size: 16px;
-                        font-weight: 600;
-                    }
-                    .course-list {
-                        margin: 0;
-                    }
-                    .program-course-card, .motivating-section {
-                        border: 1px solid #D8D8D8;
-                        border-radius: 8px;
-                        padding: 15px;
-                        margin: 0 0 15px;
-                        font-size: 12px;
-                        line-height: 16px;
-                        color: #70787E;
-                        background: none;
-                        height: 105px;
-                        .section:empty {
-                            display: none;
-                        }
-                        a.btn-brand, button.btn-brand {
-                            background: #1D386A;
-                            height: auto;
-                            display: inline-block;
-                            padding: 5px 10px;
-                            border-radius: 6px;
-                            font-size: 14px;
-                            font-weight: 500;
-                            line-height: 20px;
-                            margin: 10px 0 0;
-                            min-width: 115px;
-                            width: auto;
-                            position: relative;
-                            bottom: 38px;
-                            left: 660px;
-                        }
-                        .motivating-message {
-                            margin: 0;
-                            font-size: 12px;
-                            font-weight: 400;
-                        }
-                        .certificate-status {
-                            margin: 0;
-                            padding: 0;
-                            span.certificate-status-msg {
-                                font-size: 12px;
-                                line-height: 16px;
-                            }
-                        }
-                        .course-text {
-                            .title a {
-                                color: #111827 !important;
-                            }
-                            .run-period {
-                                font-size: 12px;
-                                line-height: 16px;
-                                color: #0F8B8D;
-                            }
-                        }
-                    }
-                    .motivating-section {
-                        background: #F8F8F8;
-                    }
-                }
-            }
-        }
-        .program-sidebar {
-            float: right;
-            margin: 0 !important;
-            max-width: 100%;
-            width: 100%;
-            padding: 0;
-            @include media-breakpoint-up(md) {
-                max-width: 32%;
-                margin: 0 0 0 40px !important;
-            }
-            @include media-breakpoint-up(lg) {
-                max-width: 24%;
-            }
-        }
-    }
-    .program-sidebar {
-        .aside {
-            background: #FFFFFF !important;
-            border-radius: 6px;
-            padding: 15px;
-            margin: 0 0 20px;
+      }
+
+      /* ---------------- Course List ---------------- */
+
+      .course-list-headings {
+
+        .remaining-group {
+          position: relative;
+          margin: 0 0 15px;
+
+          h4 {
             text-align: left;
-            width: 100%;
+            font: 600 16px/22px;
+            color: #111827;
+            margin: 0 0 10px;
+            padding: 0;
+            border: none;
+          }
+
+          .count {
+            width: 30px;
+            height: 25px;
+            position: absolute;
+            text-align: center;
+            border-radius: 4px;
+            background: #F8F8F8;
+            top: 3px;
+            left: 65px;
+            font-size: 16px;
+            font-weight: 600;
+          }
+
+          .course-list {
+            margin: 0;
+          }
+
+          /* ---------------- Course Card ---------------- */
+
+          .program-course-card {
             border: 1px solid #D8D8D8;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 0 0 15px;
             font-size: 12px;
-            p.motivating-message {
-                margin: 0;
-                color: none;
-            }
-            &:empty {
-                display: none;
-            }
-            h2 {
-                text-align: left;
-                font-size: 16px;
+            line-height: 16px;
+            color: #70787E;
+            background: none;
+            height: 105px;
+
+            .course-text {
+
+              .title {
                 color: #111827;
-                font-weight: 600;
-                font: 600 16px/22px;
-                margin: 0 0 10px;
-                padding: 0;
-                border: none;
-            }
-            .progress-circle-wrapper {
-                width: 220px;
-                height: 220px;
-                .label {
-                    font-size: 14px;
+              }
+
+              .certificate-status {
+
+                .certificate-status-msg {
+                  font-size: 12px;
+                  line-height: 16px;
+                  color: #70787E;
                 }
-                svg {
-                    width: 200px;
-                    height: 200px;
-                }
-                .progress-circle {
-                    .complete {
-                        stroke: $primary;
-                    }
-                }
+              }
             }
-            .progress-label {
-                top: 68px;
-                font-size: 12px;
-                left: -10px;
-                font-weight: 600;
-                color: #111827;
+
+            .motivating-message {
+              margin: 0;
+              font-size: 12px;
+              font-weight: 400;
             }
-            .numbers {
-                font-size: 22px;
-                color: #111827;
-                .complete {
-                    color: #111827;
-                }
+
+            /* ---------------- Button ---------------- */
+
+            a.btn-brand {
+              background: #1D386A;
+              height: auto;
+              display: inline-block;
+              padding: 5px 10px;
+              border-radius: 6px;
+              font-size: 14px;
+              font-weight: 500;
+              line-height: 20px;
+              margin: 10px 0 0;
+              min-width: 115px;
+              width: auto;
+              position: relative;
+              bottom: 38px;
+              left: 660px;
             }
-            .certificate-list {
-                list-style: none;
-                margin: 0 0 -15px;
-                padding: 0;
-                li {
-                    padding: 0 0 15px;
-                    display: block;
-                    text-align: center;
-                    .image-link {
-                        display: block;
-                        width: 120px;
-                        margin: 0 auto 10px;
-                    }
-                    .certificate-link {
-                        font-size: 12px;
-                        line-height: 18px;
-                        font-weight: 600;
-                        color: #111827;
-                        margin: 0;
-                    }
-                }
-            }
+          }
         }
+      }
     }
+
+    /* ---------------- Sidebar ---------------- */
+
+    .program-sidebar {
+      float: right;
+      margin: 0;
+      width: 100%;
+      padding: 0;
+
+      @include media-breakpoint-up(md) {
+        max-width: 32%;
+        margin-left: 40px;
+      }
+
+      @include media-breakpoint-up(lg) {
+        max-width: 24%;
+      }
+
+      .aside {
+        background: #FFFFFF;
+        border-radius: 6px;
+        padding: 15px;
+        margin: 0 0 20px;
+        border: 1px solid #D8D8D8;
+        font-size: 12px;
+        text-align: left;
+
+        h2 {
+          font: 600 16px/22px $font-family-title;
+          color: #111827;
+          margin: 0 0 10px;
+        }
+
+        p.motivating-message {
+          margin: 0;
+        }
+      }
+    }
+  }
 }

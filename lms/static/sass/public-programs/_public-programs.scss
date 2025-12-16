@@ -1,95 +1,101 @@
-/* Page Wrapper */
+/* Programs Page */
 .programs-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 
-/* Grid Layout for Your Program Cards */
-.program-grid {
+  /* Page Header */
+  .programs-header {
+    margin-bottom: 24px;
+    text-align: left;
+
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+    }
+  }
+
+  /* Grid Layout */
+  .program-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
-}
+  }
 
-/* PROGRAM CARD */
-.program-card {
+  /* Program Card */
+  .program-card {
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     overflow: hidden;
     display: flex;
     flex-direction: column;
     cursor: pointer;
 
-    /* If image exists */
+    /* Banner Image */
     .card-img-top {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
     }
 
+    /* Card Content */
     .card-body {
-        padding: 20px;
-        flex-grow: 1;
+      padding: 20px;
+      flex-grow: 1;
 
-        .program-name,
-        h5.program-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
+      .program-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .text-muted {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+        color: #6b7280;
+      }
+
+      .program-details {
+        display: block;
+        text-align: center;
+        font-weight: 600;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
         }
+      }
 
-        .text-muted {
-            font-size: 0.9rem;
-            margin-bottom: 15px;
+      /* Optional stats / tabs */
+      .progress-stats,
+      .program-tabs {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+
+        a {
+          text-decoration: none;
+          color: #666;
+          font-weight: 500;
+
+          &:hover {
+            color: #000;
+          }
         }
+      }
 
-        /* Statistics Tabs (Completed / In Progress / Remaining) */
-        .progress-stats,
-        .program-tabs {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
+      /* Button row */
+      .d-flex {
+        margin-top: 10px;
 
-            a {
-                text-decoration: none;
-                color: #666;
-                font-weight: 500;
-
-                &:hover {
-                    color: #000;
-                }
-            }
+        a {
+          min-width: 110px;
+          text-align: center;
         }
-
-        /* Buttons Row */
-        .d-flex {
-            margin-top: 10px;
-
-            a {
-                min-width: 110px;
-                text-align: center;
-            }
-        }
+      }
     }
-}
-
-/* Colors for your categories (optional but supported) */
-.color-green {
-    background: linear-gradient(135deg, #a8ff78, #78ffd6);
-}
-
-.color-blue {
-    background: linear-gradient(135deg, #6dd5ed, #2193b0);
-}
-
-.color-purple {
-    background: linear-gradient(135deg, #8e2de2, #4a00e0);
-}
-
-.color-orange {
-    background: linear-gradient(135deg, #fcb045, #fd1d1d);
+  }
 }
