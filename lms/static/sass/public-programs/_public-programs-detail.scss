@@ -31,7 +31,7 @@
           width: calc(100% - 32% - 40px);
         }
 
-        @media only screen and (min-width: $big-screen) {
+        @include media-breakpoint-up(xl) {
           max-width: calc(100% - 24% - 40px);
           color: black;
         }
@@ -58,7 +58,7 @@
         max-width: calc(100% - 32% - 40px);
       }
 
-      @media only screen and (min-width: $big-screen) {
+      @include media-breakpoint-up(xl) {
         max-width: calc(100% - 24% - 40px);
         color: black;
       }
