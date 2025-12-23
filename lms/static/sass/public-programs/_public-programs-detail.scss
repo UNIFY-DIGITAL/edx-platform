@@ -8,7 +8,7 @@
     padding: 40px 15px;
   }
 
-  /* ---------------- Header ---------------- */
+ 
 
   .program-details-header {
     padding: 0 0 20px;
@@ -32,21 +32,21 @@
         }
 
         @include media-breakpoint-up(xl) {
-          max-width: calc(100% - 24% - 40px);
+          max-width: calc(100% - 30% - 40px);
           color: black;
         }
       }
     }
   }
 
-  /* ---------------- Layout Wrapper ---------------- */
+  
 
   .col-12.flex-column {
     padding: 0 !important;
     display: block !important;
     overflow: hidden;
 
-    /* ---------------- Main Content ---------------- */
+    
 
     .program-details-content {
       padding: 0;
@@ -55,15 +55,15 @@
       max-width: 100%;
 
       @include media-breakpoint-up(md) {
-        max-width: calc(100% - 32% - 40px);
+        max-width: calc(100% - 30% - 40px);
       }
 
       @include media-breakpoint-up(xl) {
-        max-width: calc(100% - 24% - 40px);
+        max-width: calc(100% - 30% - 40px);
         color: black;
       }
 
-      /* ---------------- Program Heading ---------------- */
+      
 
       .program-heading {
         border-radius: 6px;
@@ -84,7 +84,7 @@
         }
       }
 
-      /* ---------------- Course List ---------------- */
+      
 
       .course-list-headings {
 
@@ -104,7 +104,7 @@
           .count {
             width: 30px;
             height: 25px;
-            position: absolute;
+            position: relative;
             text-align: center;
             border-radius: 4px;
             background: #F8F8F8;
@@ -112,13 +112,16 @@
             left: 65px;
             font-size: 16px;
             font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
           }
 
           .course-list {
             margin: 0;
           }
 
-          /* ---------------- Course Card ---------------- */
+         
 
           .program-course-card {
             border: 1px solid #D8D8D8;
@@ -129,12 +132,18 @@
             line-height: 16px;
             color: #70787E;
             background: none;
-            height: 105px;
+            height: 65px;
 
             .course-text {
-
+               
+            
               .title {
                 color: #111827;
+                font-size: 14px;
+                font-weight: 600;
+                line-height: 18px;
+                  
+
               }
 
               .certificate-status {
@@ -142,7 +151,7 @@
                 .certificate-status-msg {
                   font-size: 12px;
                   line-height: 16px;
-                  color: #70787E;
+                  color: #414141;
                 }
               }
             }
@@ -153,7 +162,7 @@
               font-weight: 400;
             }
 
-            /* ---------------- Button ---------------- */
+            
 
             a.btn-brand {
               background: #1D386A;
@@ -170,13 +179,15 @@
               position: relative;
               bottom: 38px;
               left: 660px;
+              color: #fff;
+              text-align: center;
             }
           }
         }
       }
     }
 
-    /* ---------------- Sidebar ---------------- */
+    
 
     .program-sidebar {
       float: right;
@@ -191,6 +202,8 @@
 
       @include media-breakpoint-up(lg) {
         max-width: 24%;
+        position: relative;
+        right: 50px;
       }
 
       .aside {
@@ -201,9 +214,11 @@
         border: 1px solid #D8D8D8;
         font-size: 12px;
         text-align: left;
+        position: relative;
+        right: 50px;
 
         h2 {
-          font: 600 16px/22px;
+          font: 600 16px/22px $font-family-title;
           color: #111827;
           margin: 0 0 10px;
         }

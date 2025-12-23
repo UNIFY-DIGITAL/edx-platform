@@ -43,23 +43,53 @@ from django.utils.translation import gettext as _
                                 <div class="course-text">
                                     <div class="title">${course['title']}</div>
 
-                                    <div class="certificate-status">
-                                        <span class="certificate-status-msg">
-                                            ${_('Not Currently Available')}
-                                        </span>
-                                    </div>
+                                   <div class="certificate-status">
+    % if course.get('course_runs') and len(course['course_runs']) > 0:
+        <%
+            from datetime import datetime
+
+            run = course['course_runs'][0]
+            availability = run.get('availability')
+            start_date = run.get('start')
+
+            display_text = _('Not Available')
+
+            if availability == 'Current':
+                display_text = _('Ongoing')
+
+            elif availability == 'Upcoming' and start_date:
+                try:
+                    dt = datetime.fromisoformat(start_date.replace('Z', '+00:00'))
+                    display_text = _('Starts on {date}').format(
+                        date=dt.strftime('%d %b %Y')
+                    )
+                except Exception:
+                    display_text = _('Upcoming')
+
+            elif availability == 'Archived':
+                display_text = _('Archived')
+        %>
+
+        <span class="certificate-status-msg">
+            ${ display_text }
+        </span>
+    % else:
+        <span class="certificate-status-msg">
+            ${ _('Not Available') }
+        </span>
+    % endif
+</div>
+
+
+
                                 </div>
 
-                                <p class="motivating-message">
-                                    <i class="bi bi-info-circle"></i>
-                                    ${_('You enrolled in this course but did not earn the certificate required to complete this program.')}
-                                </p>
-
+                              
                                 % if course.get('course_runs') and len(course['course_runs']) > 0:
                                     <% run = course['course_runs'][0] %>
 
-                                    <a href="https://unify.university/courses/${ run['key'] }/about"
-                                       class="btn-brand">
+                                    <a href="/courses/${ run['key'] }/about"
+                                       class="btn btn-brand program-details">
                                         ${_('View Details')}
                                     </a>
                                 % endif
@@ -78,8 +108,8 @@ from django.utils.translation import gettext as _
             <div class="aside">
                 <h2>${_('Program Record')}</h2>
                 <p class="motivating-message">
-                    ${_("Once you complete one of the program requirements you have a program record.")}<br><br>
-                    ${_("This record is marked complete once you meet all program requirements.")}<br><br>
+                    ${_("Once you complete one of the program requirements you have a program record.")}
+                    ${_("This record is marked complete once you meet all program requirements.")}
                     ${_("A program record can be used to continue your learning journey and demonstrate your learning to others.")}
                 </p>
             </div>
