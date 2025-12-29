@@ -1,0 +1,104 @@
+/* Programs Page */
+.programs-container {
+  width: 100%;
+  margin: 0 auto;
+
+  /* Page Header */
+  .programs-header {
+    margin-bottom: 24px;
+
+    .heading {
+      font-size: 24px;
+      font-weight: 700;
+      text-align: left;
+    }
+  }
+
+  /* Grid Layout */
+  .program-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+
+    /* Program Card */
+    .program-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+
+      /* Banner Image */
+      .card-img-top {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+
+      /* Card Content */
+      .card-body {
+        padding: 20px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+
+        .program-name {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: #333;
+          margin-bottom: 10px;
+        
+        }
+
+        .text-muted {
+          font-size: 0.9rem;
+          margin-bottom: 15px;
+          color: #6b7280;
+        }
+
+        a.program-details {
+          margin-top: auto;
+          display: flex !important;
+          align-items: center;
+          justify-content: center;
+          height: 30px;
+          font-weight: 500;
+          background-color: #1D386A;
+          color: #fff;
+          text-decoration: none;
+          border-radius: 6px;
+        }
+
+        /* Optional stats / tabs */
+        .progress-stats,
+        .program-tabs {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 15px;
+          font-size: 0.9rem;
+
+          a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+
+            &:hover {
+              color: #000;
+            }
+          }
+        }
+
+        /* Button row */
+        .d-flex {
+          margin-top: 10px;
+
+          a {
+            min-width: 110px;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}
