@@ -7,52 +7,62 @@
 from django.utils.translation import gettext as _
 %>
 
+<div class="program-list-wrapper">
 
+    <div class="program-list-container">
 
+        <div class="js-program-list-header">
+            <h2>${_('Programs')}</h2>
+        </div>
 
-
-<div class="programs-container">
-
-    <div class="programs-header">
-        <h1>${_('Programs')}</h1>
-    </div>
-
-    <div class="program-grid">
         % if programs:
-            % for program in programs:
+            <div class="program-cards-container">
 
+                % for program in programs:
                 <div class="program-card">
 
                     % if program.get('banner_image'):
-                        <img 
-                            class="card-img-top"
-                            src="${program['banner_image']['large']['url']}" 
-                            alt="${program['title']}"
-                        >
+                        <div class="card-link">
+                            <div class="banner-image-container">
+                                <img
+                                    class="banner-image"
+                                    src="${program['banner_image']['large']['url']}"
+                                    alt="${program['title']}"
+                                />
+                            </div>
+                        </div>
                     % endif
 
-                    <div class="card-body">
-
-                        <h5 class="program-name">${program['title']}</h5>
+                    <div class="text-section">
+                        <h3>${program['title']}</h3>
 
                         % if program.get('subtitle'):
-                            <p class="text-muted">${program['subtitle']}</p>
+                            <div class="meta-info">
+                                <div class="col">
+                                    ${program['subtitle']}
+                                </div>
+                            </div>
                         % endif
+                    </div>
 
-                        <a href="/programs/${program['uuid']}/" class="btn btn-brand program-details">
-                            ${_('View Details')}
-                        </a>
-
+                    <div class="status-text">
+                        <span class="number-circle">
+                            <a href="/programs/${program['uuid']}/" class="btn-brand">
+                                ${_('View Details')}
+                            </a>
+                        </span>
                     </div>
 
                 </div>
+                % endfor
 
-            % endfor
+            </div>
         % else:
-            <p class="text-center">${_('No programs found.')}</p>
+            <div class="empty-programs-message">
+                <h2>${_('No programs found.')}</h2>
+            </div>
         % endif
+
     </div>
 
 </div>
-
-
