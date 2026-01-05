@@ -16,7 +16,7 @@ def public_programs(request, program_uuid=None):
         # 👉 Render the NEW details template
         return render(
             request,
-            "public_programs/public_programs_detail.html",
+            "public_programs/public-programs-detail.html",
             {"program": program}
         )
 
@@ -28,6 +28,6 @@ def public_programs(request, program_uuid=None):
 
     return render(
         request,
-        "public_programs/public_programs.html",
+        "public_programs/public-programs.html",
         {"programs": programs}
     )

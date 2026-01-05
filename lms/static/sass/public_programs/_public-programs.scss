@@ -1,0 +1,71 @@
+.program-list-wrapper {
+  color: #111827;
+  padding: 20px 15px;
+  
+
+  @include media-breakpoint-up(md) {
+    padding: 40px 15px;
+  }
+
+  .program-list-container {
+    width: 100%;
+
+    .js-program-list-header {
+      h2 {
+        font-size: 48px;
+        font-weight: 700;
+        margin: 0 0 30px;
+        color: #111827;
+      }
+    }
+
+    .program-cards-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+
+      .program-card {
+        border-radius: 12px;
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+        padding: 0;
+        position: relative;
+
+        .text-section {
+          padding: 15px;
+
+          h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 5px;
+            color: #292C2E;
+          }
+
+          .meta-info {
+            background: #292C2E;
+            color: #fff;
+            padding: 2px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+          }
+        }
+
+        .status-text {
+          padding: 0 15px 10px;
+
+          .number-circle {
+            display: block;
+
+            a.btn-brand {
+              background: #1D386A;
+              color: #fff;
+              text-decoration: none;
+              padding: 8px 14px;
+              border-radius: 6px;
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+  }
+}
