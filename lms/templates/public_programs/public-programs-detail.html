@@ -1,0 +1,107 @@
+## mako
+<%page expression_filter="h"/>
+<%inherit file="/main.html" />
+
+<%!
+from django.utils.translation import gettext as _
+%>
+
+<div class="program-details-wrapper">
+
+    <div class="program-details-header">
+        <div class="meta-info grid-container">
+            <h2 class="program-title">${ program['title'] }</h2>
+        </div>
+    </div>
+
+    <div class="program-details-layout">
+
+        <div class="program-details-content">
+
+            <div class="program-heading">
+                <h3>${_('Your Program Journey')}</h3>
+                <p class="program-heading-message">
+                    ${_("Track and plan your progress through the")}
+                    ${len(program.get('courses', []))}
+                    ${_("courses in this program.")}
+                    ${_("To complete the program, you must earn a verified certificate for each course.")}
+                </p>
+            </div>
+
+            <div class="course-list-headings">
+
+                <div class="remaining-group">
+                    <h4>${_(' Courses')}</h4>
+                    <span class="count">${len(program.get('courses', []))}</span>
+
+                    <div class="course-list">
+                        % for course in program.get("courses", []):
+                            <div class="program-course-card">
+
+                                <div class="course-text">
+                                    <div class="title">${course['title']}</div>
+
+                                    <div class="certificate-status">
+                                        % if course.get('course_runs') and len(course['course_runs']) > 0:
+                                            <%
+                                                from datetime import datetime
+                                                run = course['course_runs'][0]
+                                                availability = run.get('availability')
+                                                start_date = run.get('start')
+
+                                                display_text = _('Not Available')
+
+                                                if availability == 'Current':
+                                                    display_text = _('Ongoing')
+                                                elif availability == 'Upcoming' and start_date:
+                                                    try:
+                                                        dt = datetime.fromisoformat(start_date.replace('Z', '+00:00'))
+                                                        display_text = _('Starts on {date}').format(
+                                                            date=dt.strftime('%d %b %Y')
+                                                        )
+                                                    except Exception:
+                                                        display_text = _('Upcoming')
+                                                elif availability == 'Archived':
+                                                    display_text = _('Archived')
+                                            %>
+
+                                            <span class="certificate-status-msg">
+                                                ${ display_text }
+                                            </span>
+                                        % else:
+                                            <span class="certificate-status-msg">
+                                                ${ _('Not Available') }
+                                            </span>
+                                        % endif
+                                    </div>
+                                </div>
+
+                                % if course.get('course_runs') and len(course['course_runs']) > 0:
+                                    <a href="/courses/${ run['key'] }/about"
+                                       class="btn-brand">
+                                        ${_('View Details')}
+                                    </a>
+                                % endif
+
+                            </div>
+                        % endfor
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="program-sidebar">
+            <div class="aside">
+                <h2>${_('Program Record')}</h2>
+                <p class="motivating-message">
+                    ${_("Once you complete one of the program requirements you have a program record.")}
+                    ${_("This record is marked complete once you meet all program requirements.")}
+                    ${_("A program record can be used to continue your learning journey and demonstrate your learning to others.")}
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>

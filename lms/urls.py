@@ -98,6 +98,8 @@ urlpatterns = [
     path('', branding_views.index, name='root'),  # Main marketing page, or redirect to courseware
     
     path("programs", public_programs, name="public-programs"),
+
+    path("programs/<uuid:program_uuid>/", public_programs, name="public-program-detail"),
     
     path('', include('common.djangoapps.student.urls')),
     # TODO: Move lms specific student views out of common code

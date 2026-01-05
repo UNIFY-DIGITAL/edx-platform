@@ -1,0 +1,70 @@
+## mako
+
+<%page expression_filter="h"/>
+<%inherit file="/main.html" />
+<%namespace name="static" file="/static_content.html"/>
+
+
+<%!
+from django.utils.translation import gettext as _
+%>
+
+<div class="program-list-wrapper">
+
+    <div class="program-list-container">
+
+        <div class="js-program-list-header">
+            <h2>${_('Programs')}</h2>
+        </div>
+
+        % if programs:
+            <div class="program-cards-container">
+
+                % for program in programs:
+                <div class="program-card">
+
+                    % if program.get('banner_image'):
+                        <div class="card-link">
+                            <div class="banner-image-container">
+                                <img
+                                    class="banner-image"
+                                    src="${program['banner_image']['large']['url']}"
+                                    alt="${program['title']}"
+                                />
+                            </div>
+                        </div>
+                    % endif
+
+                    <div class="text-section">
+                        <h3>${program['title']}</h3>
+
+                        % if program.get('subtitle'):
+                            <div class="meta-info">
+                                <div class="col">
+                                    ${program['subtitle']}
+                                </div>
+                            </div>
+                        % endif
+                    </div>
+
+                    <div class="status-text">
+                        <span class="number-circle">
+                            <a href="/programs/${program['uuid']}/" class="btn-brand">
+                                ${_('View Details')}
+                            </a>
+                        </span>
+                    </div>
+
+                </div>
+                % endfor
+
+            </div>
+        % else:
+            <div class="empty-programs-message">
+                <h2>${_('No programs found.')}</h2>
+            </div>
+        % endif
+
+    </div>
+
+</div>
